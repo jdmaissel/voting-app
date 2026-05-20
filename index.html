@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+    <!-- Last updated: 05/20/2026, 10:25:11 AM -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>דירוג הרצאה</title>
@@ -11,38 +12,27 @@
             box-sizing: border-box;
         }
 
-        /* Color Tokens */
         :root {
-            /* Primary - Purple */
             --primary-50: #f8f6ff;
             --primary-100: #f0ebff;
             --primary-500: #7c3aed;
             --primary-600: #6d28d9;
             --primary-900: #3f0f82;
-
-            /* Accent - Teal */
             --accent-500: #14b8a6;
-
-            /* Neutrals */
             --neutral-50: #fafafa;
             --neutral-100: #f3f4f6;
             --neutral-500: #6b7280;
             --neutral-900: #111827;
-
-            /* Typography */
             --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-
             --fs-body: 16px;
             --fs-button: 16px;
             --fs-label: 14px;
             --fs-stat-value: 48px;
             --fs-title: 24px;
-
             --fw-regular: 400;
             --fw-medium: 500;
             --fw-semibold: 600;
             --fw-bold: 700;
-
             --lh-body: 1.5;
             --lh-heading: 1.2;
         }
@@ -88,6 +78,38 @@
             line-height: var(--lh-heading);
             margin-bottom: 40px;
             color: var(--neutral-900);
+        }
+
+        .talk-input-section {
+            margin-bottom: 32px;
+            padding: 20px;
+            background: var(--primary-50);
+            border-radius: 12px;
+            border: 1px solid var(--primary-100);
+        }
+
+        .talk-input-section label {
+            display: block;
+            font-size: var(--fs-label);
+            font-weight: var(--fw-medium);
+            color: var(--neutral-900);
+            margin-bottom: 12px;
+        }
+
+        .talk-input-section input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--primary-100);
+            border-radius: 8px;
+            font-size: var(--fs-body);
+            font-family: var(--font-family);
+            color: var(--neutral-900);
+        }
+
+        .talk-input-section input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            background: white;
         }
 
         .voting-section {
@@ -143,29 +165,36 @@
             padding: 32px;
             border-radius: 16px;
             margin-top: 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
         }
 
-        .stat-item {
-            text-align: center;
+        table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        .stat-label {
-            color: var(--neutral-500);
-            font-size: var(--fs-label);
-            font-weight: var(--fw-medium);
-            margin-bottom: 8px;
-            display: block;
-            line-height: var(--lh-body);
+        table th {
+            text-align: right;
+            padding: 12px;
+            font-weight: var(--fw-semibold);
+            color: var(--neutral-900);
+            border-bottom: 2px solid var(--primary-500);
+            font-size: 14px;
         }
 
-        .stat-value {
-            font-size: var(--fs-stat-value);
-            font-weight: var(--fw-bold);
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--neutral-100);
+            text-align: right;
+            font-size: 14px;
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
+        }
+
+        table td:first-child {
+            font-weight: var(--fw-semibold);
             color: var(--primary-600);
-            line-height: 1;
         }
 
         .message {
@@ -175,6 +204,54 @@
             font-weight: var(--fw-semibold);
             margin-top: 24px;
             min-height: 20px;
+        }
+
+        .setup-section {
+            background: var(--primary-50);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 1px solid var(--primary-100);
+        }
+
+        .setup-section h3 {
+            font-size: 14px;
+            font-weight: var(--fw-semibold);
+            color: var(--primary-900);
+            margin-bottom: 12px;
+        }
+
+        .setup-section input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            border: 1px solid var(--primary-200);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: monospace;
+        }
+
+        .setup-section button {
+            width: 100%;
+            background: var(--primary-600);
+            color: white;
+            margin-top: 8px;
+        }
+
+        .setup-section button:hover {
+            background: var(--primary-700);
+            border-color: var(--primary-700);
+            color: white;
+        }
+
+        .setup-section p {
+            font-size: 12px;
+            color: var(--neutral-500);
+            margin-top: 8px;
+        }
+
+        .hidden {
+            display: none;
         }
 
         @media (max-width: 480px) {
@@ -192,12 +269,12 @@
                 gap: 10px;
             }
 
-            .stat-value {
-                font-size: 36px;
+            table {
+                font-size: 12px;
             }
 
-            .stats {
-                grid-template-columns: 1fr;
+            table th, table td {
+                padding: 8px;
             }
         }
     </style>
@@ -207,96 +284,209 @@
         <div class="header">
             <h2 class="page-title">UXI Live 2026 - Voting App</h2>
         </div>
-        <h1>מהמגלשה לארגז החול:<br>מה למדנו מעיצוב לילדים על חוויות שימוש פתוחות</h1>
 
-        <div class="voting-section">
-            <label class="buttons-label">מה דעתך על ההרצאה?</label>
-            <div class="buttons-container" id="votingButtons"></div>
-            <div class="message" id="message"></div>
+        <div class="setup-section" id="setupSection">
+            <h3>🔐 GitHub Setup (One-time)</h3>
+            <input type="password" id="githubToken" placeholder="Paste your GitHub token here">
+            <button onclick="setupGitHub()">Connect to GitHub</button>
+            <p>⚠️ Token will be stored locally. Regenerate it after the event for security.</p>
         </div>
 
-        <div class="stats">
-            <div class="stat-item">
-                <span class="stat-label">ממוצע הדירוג</span>
-                <div class="stat-value" id="average">-</div>
+        <div id="votingApp" class="hidden">
+            <div class="talk-input-section">
+                <label for="talkNumber">Talk number</label>
+                <input type="number" id="talkNumber" min="1" max="99">
             </div>
-            <div class="stat-item">
-                <span class="stat-label">מספר הצביעו</span>
-                <div class="stat-value" id="count">0</div>
+
+            <div class="voting-section">
+                <label class="buttons-label">מה דעתך על ההרצאה?</label>
+                <div class="buttons-container" id="votingButtons"></div>
+                <div class="message" id="message"></div>
+            </div>
+
+            <div class="stats">
+                <h3 style="margin-bottom: 16px; color: var(--neutral-900); font-size: 16px;">Results by Talk</h3>
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>Talk #</th>
+                            <th>Ave. Score</th>
+                            <th>Votes cast</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody">
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <script>
-        const TALK_ID = 'talk-1';
-        const VOTES_KEY = `votes-${TALK_ID}`;
-        const VOTED_KEY = `voted-${TALK_ID}`;
+        const GITHUB_OWNER = 'jdmaissel';
+        const GITHUB_REPO = 'voting-app';
+        const VOTES_FILE = 'votes.csv';
+        const TOKEN_KEY = 'github-token';
 
+        let githubToken = localStorage.getItem(TOKEN_KEY);
         let votes = [];
 
-        function initializeVoting() {
-            // Load votes from localStorage
-            const storedVotes = localStorage.getItem(VOTES_KEY);
-            if (storedVotes) {
-                votes = JSON.parse(storedVotes);
+        function setupGitHub() {
+            const token = document.getElementById('githubToken').value.trim();
+            if (!token) {
+                alert('Please paste your GitHub token');
+                return;
             }
+            localStorage.setItem(TOKEN_KEY, token);
+            githubToken = token;
+            document.getElementById('setupSection').classList.add('hidden');
+            document.getElementById('votingApp').classList.remove('hidden');
+            initializeVoting();
+        }
 
+        function initializeVoting() {
             const votingButtons = document.getElementById('votingButtons');
-
             for (let i = 1; i <= 10; i++) {
                 const button = document.createElement('button');
                 button.textContent = i;
                 button.onclick = () => submitVote(i);
                 votingButtons.appendChild(button);
             }
-
-            updateDisplay();
-            checkVotingStatus();
+            loadVotesFromGitHub();
         }
 
-        function submitVote(score) {
-            if (hasVoted()) {
+        async function loadVotesFromGitHub() {
+            try {
+                const response = await fetch(
+                    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${VOTES_FILE}`,
+                    { headers: { 'Authorization': `token ${githubToken}` } }
+                );
+                if (response.ok) {
+                    const data = await response.json();
+                    const content = atob(data.content);
+                    const lines = content.split('\n').slice(1);
+                    votes = lines
+                        .filter(line => line.trim())
+                        .map(line => {
+                            const parts = line.split(',');
+                            return {
+                                timestamp: parts[0],
+                                talkNumber: parseInt(parts[1]),
+                                score: parseInt(parts[2])
+                            };
+                        })
+                        .filter(v => !isNaN(v.talkNumber) && !isNaN(v.score));
+                }
+            } catch (e) {
+                console.error('Error loading votes:', e);
+            }
+            updateDisplay();
+        }
+
+        async function submitVote(score) {
+            const talkNumber = parseInt(document.getElementById('talkNumber').value);
+
+            if (!talkNumber || talkNumber < 1 || talkNumber > 99) {
+                alert('Please enter a valid talk number (1-99)');
                 return;
             }
 
-            votes.push(score);
-            localStorage.setItem(VOTES_KEY, JSON.stringify(votes));
-            localStorage.setItem(VOTED_KEY, 'true');
-            updateDisplay();
-            checkVotingStatus();
-        }
-
-        function hasVoted() {
-            return localStorage.getItem(VOTED_KEY) === 'true';
-        }
-
-        function updateDisplay() {
-            const count = votes.length;
-            const average = count > 0
-                ? (votes.reduce((a, b) => a + b, 0) / count).toFixed(1)
-                : '-';
-
-            document.getElementById('count').textContent = count;
-            document.getElementById('average').textContent = average;
-        }
-
-        function checkVotingStatus() {
-            const buttons = document.querySelectorAll('.buttons-container button');
-            const voted = hasVoted();
-
-            buttons.forEach(btn => {
-                btn.disabled = voted;
+            const now = new Date().toLocaleString('en-US', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
             });
 
-            const message = document.getElementById('message');
-            if (voted) {
-                message.textContent = '✓ תודה על הדירוג!';
-            } else {
-                message.textContent = '';
+            try {
+                const response = await fetch(
+                    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${VOTES_FILE}`,
+                    { headers: { 'Authorization': `token ${githubToken}` } }
+                );
+                const data = await response.json();
+                const content = atob(data.content);
+                const newContent = content + `${now},${talkNumber},${score}\n`;
+
+                await fetch(
+                    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${VOTES_FILE}`,
+                    {
+                        method: 'PUT',
+                        headers: { 'Authorization': `token ${githubToken}` },
+                        body: JSON.stringify({
+                            message: `Add vote: talk ${talkNumber}, score ${score}`,
+                            content: btoa(newContent),
+                            sha: data.sha
+                        })
+                    }
+                );
+
+                votes.push({
+                    timestamp: now,
+                    talkNumber: talkNumber,
+                    score: score
+                });
+
+                updateDisplay();
+                document.getElementById('message').textContent = '✓ תודה על הדירוג!';
+
+                // Disable buttons after vote
+                const buttons = document.querySelectorAll('.buttons-container button');
+                buttons.forEach(btn => { btn.disabled = true; });
+
+                // Clear talk number and allow voting for another talk after a delay
+                setTimeout(() => {
+                    document.getElementById('talkNumber').value = '';
+                    document.getElementById('message').textContent = '';
+                    buttons.forEach(btn => { btn.disabled = false; });
+                }, 2000);
+
+            } catch (e) {
+                alert('Error saving vote. Check your token.');
             }
         }
 
-        initializeVoting();
+        function updateDisplay() {
+            const talkStats = {};
+
+            votes.forEach(vote => {
+                if (!talkStats[vote.talkNumber]) {
+                    talkStats[vote.talkNumber] = { scores: [], count: 0 };
+                }
+                talkStats[vote.talkNumber].scores.push(vote.score);
+                talkStats[vote.talkNumber].count++;
+            });
+
+            const resultsBody = document.getElementById('resultsBody');
+            resultsBody.innerHTML = '';
+
+            const sortedTalks = Object.keys(talkStats).sort((a, b) => parseInt(a) - parseInt(b));
+
+            sortedTalks.forEach(talkNum => {
+                const stats = talkStats[talkNum];
+                const average = (stats.scores.reduce((a, b) => a + b, 0) / stats.count).toFixed(1);
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${talkNum}</td>
+                    <td>${average}</td>
+                    <td>${stats.count}</td>
+                `;
+                resultsBody.appendChild(row);
+            });
+
+            if (sortedTalks.length === 0) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = '<td colspan="3" style="text-align: center; color: var(--neutral-500);">No votes yet</td>';
+                resultsBody.appendChild(emptyRow);
+            }
+        }
+
+        if (githubToken) {
+            document.getElementById('setupSection').classList.add('hidden');
+            document.getElementById('votingApp').classList.remove('hidden');
+            initializeVoting();
+        }
     </script>
 </body>
 </html>
