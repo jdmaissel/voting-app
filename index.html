@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>דירוג הרצאה</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Color Tokens */
+        :root {
+            /* Primary - Purple */
+            --primary-50: #f8f6ff;
+            --primary-100: #f0ebff;
+            --primary-500: #7c3aed;
+            --primary-600: #6d28d9;
+            --primary-900: #3f0f82;
+
+            /* Accent - Teal */
+            --accent-500: #14b8a6;
+
+            /* Neutrals */
+            --neutral-50: #fafafa;
+            --neutral-100: #f3f4f6;
+            --neutral-500: #6b7280;
+            --neutral-900: #111827;
+
+            /* Typography */
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+
+            --fs-body: 16px;
+            --fs-button: 16px;
+            --fs-label: 14px;
+            --fs-stat-value: 48px;
+            --fs-title: 24px;
+
+            --fw-regular: 400;
+            --fw-medium: 500;
+            --fw-semibold: 600;
+            --fw-bold: 700;
+
+            --lh-body: 1.5;
+            --lh-heading: 1.2;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, var(--primary-50) 0%, var(--neutral-50) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--neutral-900);
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(63, 15, 130, 0.08);
+            max-width: 600px;
+            width: 100%;
+            padding: 48px;
+        }
+
+        .header {
+            border-bottom: 2px solid var(--primary-100);
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-size: 14px;
+            font-weight: var(--fw-semibold);
+            color: var(--primary-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: var(--fs-title);
+            font-weight: var(--fw-semibold);
+            line-height: var(--lh-heading);
+            margin-bottom: 40px;
+            color: var(--neutral-900);
+        }
+
+        .voting-section {
+            margin: 40px 0;
+        }
+
+        .buttons-label {
+            font-size: var(--fs-label);
+            font-weight: var(--fw-medium);
+            color: var(--neutral-500);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        button {
+            padding: 16px 12px;
+            font-size: var(--fs-button);
+            font-weight: var(--fw-semibold);
+            border: 2px solid var(--primary-100);
+            border-radius: 12px;
+            background: var(--primary-50);
+            color: var(--primary-600);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-family);
+        }
+
+        button:hover:not(:disabled) {
+            border-color: var(--primary-500);
+            background: var(--primary-100);
+            color: var(--primary-900);
+            transform: translateY(-2px);
+        }
+
+        button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .stats {
+            background: var(--neutral-100);
+            padding: 32px;
+            border-radius: 16px;
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            color: var(--neutral-500);
+            font-size: var(--fs-label);
+            font-weight: var(--fw-medium);
+            margin-bottom: 8px;
+            display: block;
+            line-height: var(--lh-body);
+        }
+
+        .stat-value {
+            font-size: var(--fs-stat-value);
+            font-weight: var(--fw-bold);
+            color: var(--primary-600);
+            line-height: 1;
+        }
+
+        .message {
+            text-align: center;
+            color: var(--accent-500);
+            font-size: var(--fs-label);
+            font-weight: var(--fw-semibold);
+            margin-top: 24px;
+            min-height: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 32px 24px;
+            }
+
+            h1 {
+                font-size: 20px;
+                margin-bottom: 32px;
+            }
+
+            .buttons-container {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+            }
+
+            .stat-value {
+                font-size: 36px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2 class="page-title">UXI Live 2026 - Voting App</h2>
+        </div>
+        <h1>מהמגלשה לארגז החול:<br>מה למדנו מעיצוב לילדים על חוויות שימוש פתוחות</h1>
+
+        <div class="voting-section">
+            <label class="buttons-label">מה דעתך על ההרצאה?</label>
+            <div class="buttons-container" id="votingButtons"></div>
+            <div class="message" id="message"></div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-label">ממוצע הדירוג</span>
+                <div class="stat-value" id="average">-</div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">מספר הצביעו</span>
+                <div class="stat-value" id="count">0</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const TALK_ID = 'talk-1';
+        const VOTES_KEY = `votes-${TALK_ID}`;
+        const VOTED_KEY = `voted-${TALK_ID}`;
+
+        let votes = [];
+
+        function initializeVoting() {
+            // Load votes from localStorage
+            const storedVotes = localStorage.getItem(VOTES_KEY);
+            if (storedVotes) {
+                votes = JSON.parse(storedVotes);
+            }
+
+            const votingButtons = document.getElementById('votingButtons');
+
+            for (let i = 1; i <= 10; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.onclick = () => submitVote(i);
+                votingButtons.appendChild(button);
+            }
+
+            updateDisplay();
+            checkVotingStatus();
+        }
+
+        function submitVote(score) {
+            if (hasVoted()) {
+                return;
+            }
+
+            votes.push(score);
+            localStorage.setItem(VOTES_KEY, JSON.stringify(votes));
+            localStorage.setItem(VOTED_KEY, 'true');
+            updateDisplay();
+            checkVotingStatus();
+        }
+
+        function hasVoted() {
+            return localStorage.getItem(VOTED_KEY) === 'true';
+        }
+
+        function updateDisplay() {
+            const count = votes.length;
+            const average = count > 0
+                ? (votes.reduce((a, b) => a + b, 0) / count).toFixed(1)
+                : '-';
+
+            document.getElementById('count').textContent = count;
+            document.getElementById('average').textContent = average;
+        }
+
+        function checkVotingStatus() {
+            const buttons = document.querySelectorAll('.buttons-container button');
+            const voted = hasVoted();
+
+            buttons.forEach(btn => {
+                btn.disabled = voted;
+            });
+
+            const message = document.getElementById('message');
+            if (voted) {
+                message.textContent = '✓ תודה על הדירוג!';
+            } else {
+                message.textContent = '';
+            }
+        }
+
+        initializeVoting();
+    </script>
+</body>
+</html>
