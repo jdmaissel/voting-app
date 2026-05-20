@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <!-- Last updated: 05/20/2026, 10:45:32 AM -->
+    <!-- Last updated: 05/20/2026, 10:55:38 AM -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>דירוג הרצאה</title>
@@ -294,8 +294,10 @@
 
         <div id="votingApp" class="hidden">
             <div class="talk-input-section">
-                <label for="talkNumber">Talk number</label>
-                <input type="number" id="talkNumber" min="1" max="99">
+                <label for="talkSelect">בחר הרצאה</label>
+                <select id="talkSelect" style="width: 100%; padding: 12px; border: 2px solid var(--primary-100); border-radius: 8px; font-size: var(--fs-body); font-family: var(--font-family); color: var(--neutral-900); background: white;">
+                    <option value="">-- בחר הרצאה --</option>
+                </select>
             </div>
 
             <div class="voting-section">
@@ -305,13 +307,13 @@
             </div>
 
             <div class="stats">
-                <h3 style="margin-bottom: 16px; color: var(--neutral-900); font-size: 16px;">Results by Talk</h3>
+                <h3 style="margin-bottom: 16px; color: var(--neutral-900); font-size: 16px;">תוצאות לפי הרצאה</h3>
                 <table id="resultsTable">
                     <thead>
                         <tr>
-                            <th>Talk #</th>
-                            <th>Ave. Score</th>
-                            <th>Votes cast</th>
+                            <th>הרצאה</th>
+                            <th>ממוצע ניקוד</th>
+                            <th>מספר הצבעות</th>
                         </tr>
                     </thead>
                     <tbody id="resultsBody">
@@ -327,8 +329,28 @@
         const VOTES_FILE = 'votes.csv';
         const TOKEN_KEY = 'github-token';
 
+        const TALKS = [
+            { id: 1, title: 'מהמגלשה לארגז החול: מה למדנו מעיצוב לילדים על חוויות שימוש פתוחות' },
+            { id: 2, title: 'מעצבים שמובילים מוצר: פרודקט גרילה בעידן ה-Vibe Coding' },
+            { id: 3, title: 'זהות לפני פונקציונליות: איך המותג הפך למצפן של המוצר שלנו' },
+            { id: 4, title: 'כשצוות העיצוב והמוצר השתלט על קוד הפרונט אנד עם AI' },
+            { id: 5, title: 'איך לקחת הזדמנויות עיצוב: בין הגנרי לספציפי' },
+            { id: 6, title: 'ערך נתפס: איך מעצבים את הרגע שבו משתמש בוחר להישאר?' },
+            { id: 7, title: 'הדי-ג׳יי הוא המעצב: איך בעזרת צלילים פתרנו חוויה שקופה?' },
+            { id: 8, title: 'האומץ להתגמש' },
+            { id: 9, title: 'אל הלא-נודע ומעבר לו: עיצוב ספקולטיבי בעידן ה-AI' },
+            { id: 10, title: 'הקונטקסט הוא המלך: על Context Design ב-AI' },
+            { id: 11, title: 'חוויה שטובה לביזנס: איך עיצבנו מוצר DNA מצליח' },
+            { id: 12, title: 'אסתטיקה של חישוב' }
+        ];
+
         let githubToken = localStorage.getItem(TOKEN_KEY);
         let votes = [];
+
+        function getTalkTitle(talkId) {
+            const talk = TALKS.find(t => t.id === talkId);
+            return talk ? talk.title : `הרצאה ${talkId}`;
+        }
 
         function setupGitHub() {
             const token = document.getElementById('githubToken').value.trim();
@@ -351,6 +373,15 @@
                 button.onclick = () => submitVote(i);
                 votingButtons.appendChild(button);
             }
+
+            const talkSelect = document.getElementById('talkSelect');
+            TALKS.forEach(talk => {
+                const option = document.createElement('option');
+                option.value = talk.id;
+                option.textContent = `${talk.id}. ${talk.title}`;
+                talkSelect.appendChild(option);
+            });
+
             loadVotesFromGitHub();
         }
 
@@ -383,10 +414,10 @@
         }
 
         async function submitVote(score) {
-            const talkNumber = parseInt(document.getElementById('talkNumber').value);
+            const talkNumber = parseInt(document.getElementById('talkSelect').value);
 
-            if (!talkNumber || talkNumber < 1 || talkNumber > 99) {
-                alert('Please enter a valid talk number (1-99)');
+            if (!talkNumber) {
+                alert('אנא בחר הרצאה');
                 return;
             }
 
@@ -428,9 +459,9 @@
                 const buttons = document.querySelectorAll('.buttons-container button');
                 buttons.forEach(btn => { btn.disabled = true; });
 
-                // Clear talk number and allow voting for another talk after a delay
+                // Clear talk selection and allow voting for another talk after a delay
                 setTimeout(() => {
-                    document.getElementById('talkNumber').value = '';
+                    document.getElementById('talkSelect').value = '';
                     document.getElementById('message').textContent = '';
                     buttons.forEach(btn => { btn.disabled = false; });
                 }, 2000);
@@ -459,10 +490,11 @@
             sortedTalks.forEach(talkNum => {
                 const stats = talkStats[talkNum];
                 const average = (stats.scores.reduce((a, b) => a + b, 0) / stats.count).toFixed(1);
+                const talkTitle = getTalkTitle(parseInt(talkNum));
 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${talkNum}</td>
+                    <td>${talkNum}. ${talkTitle}</td>
                     <td>${average}</td>
                     <td>${stats.count}</td>
                 `;
